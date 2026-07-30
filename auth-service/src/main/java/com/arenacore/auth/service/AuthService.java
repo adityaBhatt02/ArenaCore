@@ -1,4 +1,4 @@
-package com.arenacore.auth.repository.service;
+package com.arenacore.auth.service;
 
 import com.arenacore.auth.entity.Player;
 import com.arenacore.auth.repository.PlayerRepository;
