@@ -13,7 +13,7 @@ public class AuthService {
     private final PlayerRepository playerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Player registerUser(String username, String rawPassword) {
+    public Player register(String username, String rawPassword) {
         if(playerRepository.existsByUsername(username)) {
             throw new IllegalArgumentException("Username already taken!");
         }
@@ -28,7 +28,7 @@ public class AuthService {
         return playerRepository.save(player);
     }
 
-    public Player validateUser(String username, String rawPassword) {
+    public Player validateLogin(String username, String rawPassword) {
         Player player = playerRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
 
