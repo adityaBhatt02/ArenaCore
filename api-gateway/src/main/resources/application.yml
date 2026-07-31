@@ -1,23 +1,29 @@
 server:
   port: 8080
 
+jwt:
+  secret: wexK4WB7RDrSsj/t3Pibw0eqboLxryZf1ST/advE811uXSojmicQeE0Ua1kbH0YmF2Fb9mds2SMFepDp74DHtQ==
+
 spring:
   application:
     name: api-gateway
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: http://localhost:8081
-          predicates:
-            - Path=/auth/**
+      server:
+        webmvc:
+          routes:
+            - id: auth-service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/auth/**
 
-        - id: matchmaking-service
-          uri: http://localhost:8082
-          predicates:
-            - Path=/queue/**
+            - id: matchmaking-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/queue/**
 
-        - id: lobby-service
-          uri: http://localhost:8083
-          predicates:
-            - Path=/lobby/**
+            - id: lobby-service
+              uri: http://localhost:8083
+              predicates:
+                - Path=/lobby/**
+
