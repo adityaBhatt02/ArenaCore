@@ -1,4 +1,4 @@
-package com.arenacore.matchmaking_service;
+package com.arenacore.matchmaking;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

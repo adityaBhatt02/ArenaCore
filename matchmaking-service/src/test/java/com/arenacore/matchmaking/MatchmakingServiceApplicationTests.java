@@ -1,4 +1,4 @@
-package com.arenacore.matchmaking_service;
+package com.arenacore.matchmaking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

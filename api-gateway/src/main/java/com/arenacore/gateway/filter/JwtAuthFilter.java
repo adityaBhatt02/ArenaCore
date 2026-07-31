@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.security.Keys;
-
-
 import javax.crypto.SecretKey;
 import java.io.IOException;
 
