@@ -8,4 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QueuedPlayer {
+    private Long playerId;
+    private String username;
+    private Integer mmr;
 }

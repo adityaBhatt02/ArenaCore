@@ -14,10 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.security.Keys;
 import javax.crypto.SecretKey;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -86,32 +83,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if ("Authorization".equalsIgnoreCase(name)) return null;                 // hide the original JWT from downstream
 
             String customValue = customHeaders.get(name);
-            if (customValue != null) {
-                return customValue;
-            }
+            if (customValue != null) return customValue;
+
             return super.getHeader(name);
         }
 
         @Override
         public Enumeration<String> getHeaders(String name) {
-            if ("Authorization".equalsIgnoreCase(name))  return Collections.emptyEnumeration();
+            if ("Authorization".equalsIgnoreCase(name)) return Collections.emptyEnumeration();
 
             String customValue = customHeaders.get(name);
-            if (customValue != null) {
-                return Collections.enumeration(Collections.singletonList(customValue));
-            }
+            if (customValue != null) return Collections.enumeration(Collections.singletonList(customValue));
+
             return super.getHeaders(name);
         }
 
         @Override
         public Enumeration<String> getHeaderNames() {
-            java.util.Set<String> names = new java.util.HashSet<>(customHeaders.keySet());
+            Set<String> names = new HashSet<>(customHeaders.keySet());
             Enumeration<String> originalNames = super.getHeaderNames();
             while (originalNames.hasMoreElements()) {
                 String n = originalNames.nextElement();
-                if (!"Authorization".equalsIgnoreCase(n)) {
-                    names.add(n);
-                }
+                if (!"Authorization".equalsIgnoreCase(n)) names.add(n);
             }
             return Collections.enumeration(names);
         }
