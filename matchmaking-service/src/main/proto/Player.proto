@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package com.arenacore.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.arenacore.grpc";
+
+service PlayerService {
+  rpc GetPlayerMmr (PlayerMmrRequest) returns (PlayerMmrResponse);
+}
+
+message PlayerMmrRequest {
+  int64 playerId = 1;
+}
+
+message PlayerMmrResponse {
+  int64 playerId = 1;
+  int32 mmr = 2;
+}
