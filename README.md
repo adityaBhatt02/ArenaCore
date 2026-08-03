@@ -28,33 +28,33 @@ ArenaCore is backend infrastructure: authentication, MMR-based matchmaking, lobb
                               └──────┬──────┘
                                      │ REST
                               ┌──────▼──────┐
-                              │ API Gateway │  (Spring Cloud Gateway)
-                              │  JWT filter │  validates token, injects
-                              └──────┬──────┘  X-Player-Id / X-Player-Username
-                    ┌────────────────┼────────────────┐
-                    │                │                │
-             ┌──────▼─────┐   ┌──────▼──────┐   ┌──────▼──────┐
-             │   Auth     │   │ Matchmaking │   │    Lobby    │
-             │  Service   │◄──┤   Service   ├──►│   Service   │
-             │(REST+gRPC) │gRPC│  (Redis Q)  │gRPC│ (Ready-chk) │
-             └──────┬─────┘   └──────┬──────┘   └──────┬──────┘
-                    │                │                  │
-              ┌─────▼─────┐   ┌──────▼──────┐    ┌──────▼─────┐
-              │ PostgreSQL│   │    Redis    │    │ PostgreSQL │
-              │  (players)│   │(sorted-set  │    │  + Redis   │
-              └───────────┘   │   queue)    │    └──────┬─────┘
-                               └─────────────┘           │
-                                                          │ Kafka
-                                                   ┌──────▼──────┐
-                                                   │Match History│
-                                                   │  Service    │
-                                                   │(Kafka       │
-                                                   │ consumer)   │
-                                                   └──────┬──────┘
-                                                          │
-                                                    ┌─────▼─────┐
-                                                    │ PostgreSQL│
-                                                    └───────────┘
+                              │ API Gateway │ (Spring Cloud Gateway)
+                              │ JWT filter  │  validates token, injects
+                              └──────┬──────┘ X-Player-Id / X-Player-Username
+                    ┌────────────────┼─────────────────────────┐
+                    │                │                         │
+             ┌──────▼─────┐       ┌──────▼──────┐       ┌──────▼──────┐
+             │   Auth     │       │ Matchmaking │       │    Lobby    │
+             │ Service    │◄──────┤   Service   ├──────►│   Service   │
+             │(REST+gRPC) │  gRPC │ (Redis Q)   │  gRPC │ (Ready-chk) │
+             └──────┬─────┘       └──────┬──────┘       └──────┬──────┘
+                    │                    │                     │
+              ┌─────▼─────┐       ┌──────▼──────┐       ┌──────▼─────┐
+              │ PostgreSQL│       │    Redis    │       │ PostgreSQL │
+              │  (players)│       │(sorted-set  │       │ + Redis    │
+              └───────────┘       │   queue)    │       └──────┬─────┘
+                                  └─────────────┘              │
+                                                               │ Kafka
+                                                        ┌──────▼──────┐
+                                                        │Match History│
+                                                        │  Service    │
+                                                        │ (Kafka      │
+                                                        │ consumer)   │
+                                                        └──────┬──────┘
+                                                               │
+                                                         ┌─────▼─────┐
+                                                         │ PostgreSQL│
+                                                         └───────────┘
 ```
 
 Every service is an independently deployable Spring Boot application. The **API Gateway** is the only publicly reachable component — internal services communicate exclusively via gRPC (synchronous) and Kafka (asynchronous), and are never exposed outside the Docker network.
