@@ -34,22 +34,22 @@ ArenaCore is backend infrastructure: authentication, MMR-based matchmaking, lobb
                     ┌────────────────┼─────────────────────────┐
                     │                │                         │
              ┌──────▼─────┐       ┌──────▼──────┐       ┌──────▼──────┐
-             │   Auth     │       │ Matchmaking │       │    Lobby    │
-             │ Service    │◄──────┤   Service   ├──────►│   Service   │
-             │(REST+gRPC) │  gRPC │ (Redis Q)   │  gRPC │ (Ready-chk) │
+             │    Auth    │       │ Matchmaking │       │    Lobby    │
+             │   Service  │◄──────┤   Service   ├──────►│   Service   │
+             │ (REST+gRPC)│  gRPC │  (Redis Q)  │  gRPC │ (Ready-chk) │
              └──────┬─────┘       └──────┬──────┘       └──────┬──────┘
                     │                    │                     │
               ┌─────▼─────┐       ┌──────▼──────┐       ┌──────▼─────┐
               │ PostgreSQL│       │    Redis    │       │ PostgreSQL │
-              │  (players)│       │(sorted-set  │       │ + Redis    │
+              │ (players) │       │ (sorted-set │       │ + Redis    │
               └───────────┘       │   queue)    │       └──────┬─────┘
                                   └─────────────┘              │
                                                                │ Kafka
                                                         ┌──────▼──────┐
                                                         │Match History│
                                                         │  Service    │
-                                                        │ (Kafka      │
-                                                        │ consumer)   │
+                                                        │  (Kafka     │
+                                                        │  consumer)  │
                                                         └──────┬──────┘
                                                                │
                                                          ┌─────▼─────┐
