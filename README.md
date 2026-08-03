@@ -193,7 +193,7 @@ All traffic should be directed at the Gateway: `http://localhost:8080`.
 - No refresh-token flow yet — tokens simply expire after a fixed TTL.
 - Lobby and Match History services are still being built out; core matchmaking (queueing, MMR lookup, atomic claim) is implemented and tested end-to-end.
 - A scheduled AWS Lambda (via EventBridge) to purge stale/abandoned queue entries is planned but not yet implemented.
-
+- *WORK IN PROGRESS*
 ---
 
 ## Why This Project
