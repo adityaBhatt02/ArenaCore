@@ -10,6 +10,7 @@ public class AuthGrpcClientConfig {
 
     @Bean
     PlayerServiceGrpc.PlayerServiceBlockingStub playerServiceStub(GrpcChannelFactory channels) {
-        return PlayerServiceGrpc.newBlockingStub(channels.createChannel("auth-service"));
+
+        return PlayerServiceGrpc.newBlockingStub(channels.createChannel("localhost:9090"));
     }
 }
