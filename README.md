@@ -1,6 +1,6 @@
 # ArenaCore
 
-**A distributed, event-driven matchmaking and lobby platform** inspired by multiplayer game backends like Valorant, CS2, and League of Legends — built to demonstrate microservices architecture, concurrency handling, and inter-service communication patterns rather than gameplay itself.
+**A distributed, event-driven matchmaking and lobby platform** inspired by multiplayer game backends like Valorant, CS2, and League of Legends - built to demonstrate microservices architecture, concurrency handling, and inter-service communication patterns rather than gameplay itself.
 
 ArenaCore is backend infrastructure: authentication, MMR-based matchmaking, lobby management, and event-driven statistics — the same class of engineering problems faced by teams at Riot Games, Valve, and Discord (queueing, presence, caching, asynchronous fan-out, fault tolerance).
 
