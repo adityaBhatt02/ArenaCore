@@ -6,7 +6,6 @@ import com.arenacore.grpc.PlayerServiceGrpc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @RequiredArgsConstructor
 public class AuthServiceGrpcClient {
@@ -19,7 +18,4 @@ public class AuthServiceGrpcClient {
                 .build();
         return playerServiceStub.getPlayerMmr(request);
     }
-
-
-
 }
