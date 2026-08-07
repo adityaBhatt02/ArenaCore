@@ -6,6 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.core.script.RedisScript;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Service;
 import tools.jackson.databind.ObjectMapper;
@@ -38,19 +39,26 @@ public class QueueService {
         return redisTemplate.opsForZSet().zCard(QUEUE_KEY);
     }
 
-
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public List<QueuedPlayer> claimPlayers(int count) {
         ResourceScriptSource scriptSource = new ResourceScriptSource(new ClassPathResource("scripts/claim_players.lua"));
-        RedisScript<List> script = RedisScript.of(scriptSource.getResource(), List.class);
+        RedisScript script = RedisScript.of(scriptSource.getResource(), List.class);
 
-        List<String> rawResults = redisTemplate.execute(
+        RedisSerializer stringSerializer = redisTemplate.getStringSerializer();
+
+        Object result = redisTemplate.execute(
                 script,
+                stringSerializer,
+                stringSerializer,
                 Collections.singletonList(QUEUE_KEY),
                 String.valueOf(count)
         );
 
-        if(rawResults == null || rawResults.isEmpty()) return Collections.emptyList();
+        List<String> rawResults = (List<String>) result;
+
+        if (rawResults == null || rawResults.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         return rawResults.stream()
                 .map(json -> objectMapper.readValue(json, QueuedPlayer.class))
