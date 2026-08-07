@@ -25,7 +25,7 @@ public class Player {
     private String password;        // stores the Bcrypt Hash
 
     @Column(nullable = false)
-    private Integer mmr = 1000;    // starting skill rating for matchmaking
+    private Integer mmr = 0;       // starting skill rating for matchmaking
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();

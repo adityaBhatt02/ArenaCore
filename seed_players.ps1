@@ -7,16 +7,16 @@ $dbUser = "gameuser"
 $dbName = "matchmaking"
 
 $players = @{
-    "seed_p1"  = 950
-    "seed_p2"  = 980
-    "seed_p3"  = 1000
-    "seed_p4"  = 1010
-    "seed_p5"  = 1025
-    "seed_p6"  = 1040
-    "seed_p7"  = 1060
-    "seed_p8"  = 1075
-    "seed_p9"  = 1090
-    "seed_p10" = 1100
+    "seed_p1"  = 830
+    "seed_p2"  = 860
+    "seed_p3"  = 880
+    "seed_p4"  = 900
+    "seed_p5"  = 915
+    "seed_p6"  = 930
+    "seed_p7"  = 950
+    "seed_p8"  = 965
+    "seed_p9"  = 980
+    "seed_p10" = 1000
 }
 
 foreach ($username in $players.Keys) {

@@ -1,6 +1,7 @@
 package com.arenacore.auth.dto;
 
 import com.arenacore.auth.model.Rank;
+import com.arenacore.auth.model.RankCalculator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ public class PlayerRankResponse {
     private String rank;
 
     public static PlayerRankResponse from(Long playerId, String username, Integer mmr) {
-        Rank rank = Rank.fromMmr(mmr);
-        return new PlayerRankResponse(playerId, username, rank.name());
+        String displayName = RankCalculator.getDisplayName(mmr);
+        return new PlayerRankResponse(playerId, username, displayName);
     }
 }

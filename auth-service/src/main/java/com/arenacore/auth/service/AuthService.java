@@ -23,7 +23,7 @@ public class AuthService {
         Player player = new Player();
         player.setUsername(username);
         player.setPassword(hashedPassword);
-        // mmr defaults to 1000 automatically
+        // mmr defaults to 0 automatically
 
         return playerRepository.save(player);
     }

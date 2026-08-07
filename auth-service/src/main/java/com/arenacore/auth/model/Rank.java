@@ -1,13 +1,16 @@
 package com.arenacore.auth.model;
 
+import lombok.Getter;
+
+@Getter
 public enum Rank {
-    BRONZE(0, 999),
-    SILVER(1000, 1199),
-    GOLD(1200, 1399),
-    PLATINUM(1400, 1599),
-    DIAMOND(1600, 1799),
-    ASCENDANT(1800, 1999),
-    IMMORTAL(2000, Integer.MAX_VALUE);
+    BRONZE(0, 299),
+    SILVER(300, 599),
+    GOLD(600, 899),
+    PLATINUM(900, 1199),
+    DIAMOND(1200, 1499),
+    ASCENDANT(1500, 1799),
+    IMMORTAL(1800, Integer.MAX_VALUE);
 
     private final int minMmr;
     private final int maxMmr;
@@ -18,9 +21,11 @@ public enum Rank {
     }
 
     public static Rank fromMmr(int mmr) {
-        for(Rank rank: values()) {
-            if(mmr >= rank.minMmr && mmr <= rank.maxMmr) return rank;
+        for (Rank rank : values()) {
+            if (mmr >= rank.minMmr && mmr <= rank.maxMmr) {
+                return rank;
+            }
         }
-        return BRONZE;             // fallback, should never hit this
+        throw new IllegalArgumentException("Invalid MMR: " + mmr);
     }
 }
