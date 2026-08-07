@@ -38,6 +38,7 @@ public class QueueService {
         return redisTemplate.opsForZSet().zCard(QUEUE_KEY);
     }
 
+
     @SuppressWarnings("unchecked")
     public List<QueuedPlayer> claimPlayers(int count) {
         ResourceScriptSource scriptSource = new ResourceScriptSource(new ClassPathResource("scripts/claim_players.lua"));
