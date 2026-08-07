@@ -17,7 +17,7 @@ import java.util.List;
 public class MatchmakingScheduler {
 
     private static final int PLAYERS_PER_MATCH = 10;
-    private static final int MAX_MMR_RANGE = 150;
+    private static final int MAX_MMR_RANGE = 200;
 
     private final QueueService queueService;
     private final TeamBalancerService teamBalancerService;
