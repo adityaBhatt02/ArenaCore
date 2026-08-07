@@ -15,11 +15,13 @@ import java.util.List;
 public class MatchmakingScheduler {
 
     private static final int PLAYERS_PER_MATCH = 2;
+    private static final int MAX_MMR_RANGE = 150;
+
     private final QueueService queueService;
 
     @Scheduled(fixedRate = 5000)
     public void tryFormMatch() {
-        List<QueuedPlayer> claimed = queueService.claimPlayers(PLAYERS_PER_MATCH);
+        List<QueuedPlayer> claimed = queueService.claimPlayers(PLAYERS_PER_MATCH, MAX_MMR_RANGE);
 
         if(claimed.isEmpty()) {
             log.info("Not enough players in queue to form a match.");

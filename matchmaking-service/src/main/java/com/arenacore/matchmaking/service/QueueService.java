@@ -40,7 +40,7 @@ public class QueueService {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public List<QueuedPlayer> claimPlayers(int count) {
+    public List<QueuedPlayer> claimPlayers(int count, int maxMmrRange) {
         ResourceScriptSource scriptSource = new ResourceScriptSource(new ClassPathResource("scripts/claim_players.lua"));
         RedisScript script = RedisScript.of(scriptSource.getResource(), List.class);
 
@@ -51,7 +51,8 @@ public class QueueService {
                 stringSerializer,
                 stringSerializer,
                 Collections.singletonList(QUEUE_KEY),
-                String.valueOf(count)
+                String.valueOf(count),
+                String.valueOf(maxMmrRange)
         );
 
         List<String> rawResults = (List<String>) result;
