@@ -18,14 +18,17 @@ public class TeamBalancerService {
         List<QueuedPlayer> teamA = new ArrayList<>();
         List<QueuedPlayer> teamB = new ArrayList<>();
 
-        boolean assignToA = true;
+        int totalA = 0 , totalB = 0;
+
+        // Always give the next player to whichever team currently has the lower total MMR
         for(QueuedPlayer player : sorted) {
-            if(assignToA) {
+            if(totalA <= totalB) {
                 teamA.add(player);
+                totalA += player.getMmr();
             }else {
                 teamB.add(player);
+                totalB += player.getMmr();
             }
-            assignToA = !assignToA;
         }
         return new TeamAssignment(teamA, teamB);
     }
