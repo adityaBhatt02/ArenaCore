@@ -1,18 +1,17 @@
 package com.arenacore.auth.controller;
 
 import com.arenacore.auth.dto.AuthResponse;
+import com.arenacore.auth.dto.PlayerRankResponse;
 import com.arenacore.auth.dto.RegisterRequest;
 import com.arenacore.auth.entity.Player;
+import com.arenacore.auth.repository.PlayerRepository;
 import com.arenacore.auth.security.JwtService;
 import com.arenacore.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,6 +20,7 @@ public class AuthController {
 
     private final AuthService authService;
     private final JwtService jwtService;
+    private final PlayerRepository playerRepository;
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
@@ -36,5 +36,13 @@ public class AuthController {
 
         AuthResponse response = new AuthResponse(player.getId(), player.getUsername(), jwtService.generateToken(player.getId(),player.getUsername()));
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/rank")
+    public ResponseEntity<PlayerRankResponse> getPlayerRank(@PathVariable Long id) {
+        Player player = playerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Player not found"));
+
+        return ResponseEntity.ok(PlayerRankResponse.from(player.getId(), player.getUsername(), player.getMmr()));
     }
 }
