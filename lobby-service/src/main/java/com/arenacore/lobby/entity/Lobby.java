@@ -30,5 +30,6 @@ public class Lobby {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String teamBPlayerIds;
 
+    @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 }
