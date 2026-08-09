@@ -1,9 +1,6 @@
 package com.arenacore.lobby.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +18,9 @@ public class Lobby {
     @Id
     private String id = UUID.randomUUID().toString();
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String status = "WAITING_FOR_READY";     // WAITING_FOR_READY, IN_PROGRESS, COMPLETED, CANCELLED
+    private LobbyStatus status = LobbyStatus.WAITING_FOR_READY;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String teamAPlayerIds;                   // comma-seperated player id's for now
