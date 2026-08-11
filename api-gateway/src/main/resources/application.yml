@@ -26,4 +26,3 @@ spring:
               uri: http://localhost:8083
               predicates:
                 - Path=/lobby/**
-
