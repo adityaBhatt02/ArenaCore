@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.arenacore.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.arenacore.grpc";
+
+service LobbyService {
+  rpc CreateLobby (CreateLobbyRequest) returns (CreateLobbyResponse);
+}
+
+message PlayerInfo {
+  int64 playerId = 1;
+  string username = 2;
+  int32 mmr = 3;
+}
+
+message CreateLobbyRequest {
+  repeated PlayerInfo teamA = 1;
+  repeated PlayerInfo teamB = 2;
+}
+
+message CreateLobbyResponse {
+  string lobbyId = 1;
+  string status = 2;
+}
