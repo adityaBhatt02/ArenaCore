@@ -48,8 +48,8 @@ public class QueueService {
 
         Object result = redisTemplate.execute(
                 script,
-                stringSerializer,
-                stringSerializer,
+                stringSerializer,                               // key-serializer
+                stringSerializer,                               // result-serializer
                 Collections.singletonList(QUEUE_KEY),
                 String.valueOf(count),
                 String.valueOf(maxMmrRange)

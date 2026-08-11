@@ -1,5 +1,8 @@
 package com.arenacore.matchmaking.scheduler;
 
+import com.arenacore.grpc.CreateLobbyRequest;
+import com.arenacore.grpc.CreateLobbyResponse;
+import com.arenacore.matchmaking.client.LobbyGrpcClient;
 import com.arenacore.matchmaking.model.QueuedPlayer;
 import com.arenacore.matchmaking.model.TeamAssignment;
 import com.arenacore.matchmaking.service.QueueService;
@@ -21,6 +24,7 @@ public class MatchmakingScheduler {
 
     private final QueueService queueService;
     private final TeamBalancerService teamBalancerService;
+    private final LobbyGrpcClient lobbyGrpcClient;
 
     @Scheduled(fixedRate = 5000)
     public void tryFormMatch() {
@@ -36,6 +40,7 @@ public class MatchmakingScheduler {
         log.info("Match formed! Team A: {}", teams.getTeamA());
         log.info("Match formed! Team B: {}", teams.getTeamB());
 
-        // TODO: call Lobby Service via gRPC here once it exists
+        CreateLobbyResponse response = lobbyGrpcClient.createLobby(teams);
+        log.info("Lobby created: id={}, status={}", response.getLobbyId(), response.getStatus());
     }
 }
