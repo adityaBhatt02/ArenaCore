@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,17 +18,15 @@ import java.util.UUID;
 public class Lobby {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LobbyStatus status = LobbyStatus.WAITING_FOR_READY;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String teamAPlayerIds;                   // comma-seperated player id's for now
-
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String teamBPlayerIds;
+    @OneToMany(mappedBy = "lobby", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LobbyPlayer> players = new ArrayList<>();
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
