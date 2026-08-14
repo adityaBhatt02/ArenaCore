@@ -21,7 +21,6 @@ public class LobbyService {
         Lobby lobby = lobbyRepository.findById(UUID.fromString(lobbyId))
                 .orElseThrow(() -> new IllegalArgumentException("Lobby not found"));
 
-
         LobbyPlayer player = lobby.getPlayers().stream()
                 .filter(p -> p.getPlayerId().equals(playerId))
                 .findFirst()
