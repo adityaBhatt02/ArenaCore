@@ -36,7 +36,9 @@ public class LobbyService {
 
         player.setReady(true);
 
-        boolean allReady = lobby.getPlayers().stream().allMatch(LobbyPlayer::getReady);
+        boolean allReady = lobby.getPlayers().stream()
+                .allMatch(LobbyPlayer::getReady);
+
         if (allReady) {
             lobby.setStatus(LobbyStatus.IN_PROGRESS);
             publishMatchStarted(lobby);                // PUBLISH MatchStarted event to Kafka.
@@ -77,6 +79,4 @@ public class LobbyService {
 
         return new LobbyStatusResponse(lobby.getId().toString(), lobby.getStatus().name(), players);
     }
-
-
 }
