@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -74,7 +73,10 @@ public class LobbyService {
     private LobbyStatusResponse toResponse(Lobby lobby) {
         List<LobbyStatusResponse.PlayerReadyInfo> players = lobby.getPlayers().stream()
                 .map(p -> new LobbyStatusResponse.PlayerReadyInfo(
-                        p.getPlayerId(), p.getUsername(), p.getTeam().name(), p.getReady()))
+                        p.getPlayerId(),
+                        p.getUsername(),
+                        p.getTeam().name(),
+                        p.getReady()))
                 .toList();
 
         return new LobbyStatusResponse(lobby.getId().toString(), lobby.getStatus().name(), players);
